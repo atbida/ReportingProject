@@ -4,10 +4,95 @@ version: 0.0.1-SNAPSHOT
 author: sparklearner123@gmail.com
 language: python
 buildSystem: wheel
-pipelines: {}
-datasets: {}
+pipelines:
+  pipelines/PricingSummary:
+    name: PricingSummary
+    description: Reads shipping data and generates a report summarizing these operations
+    author: sparklearner123@gmail.com
+    mode: batch
+    language: python
+    createdAt: '2022-12-08 17:32:00'
+    datasets:
+      inputs:
+      - datasets/Shipments
+      outputs:
+      - datasets/report_shipping_pricing
+    dependencies: {}
+datasets:
+  datasets/Shipments:
+    name: Shipments
+    description: ''
+    author: sparklearner123@gmail.com
+    createdAt: '2022-12-08 17:36:37'
+    physicalDatasets:
+      dev:
+        fabricId: 990
+        datasetType: Warehouse
+        description: ''
+        author: sparklearner123@gmail.com
+        createdAt: '2022-12-08 17:36:37'
+  datasets/TestDataset:
+    name: TestDataset
+    description: ''
+    author: sparklearner123@gmail.com
+    createdAt: '2022-12-08 20:06:25'
+    physicalDatasets:
+      dev:
+        fabricId: 990
+        datasetType: Warehouse
+        description: ''
+        author: sparklearner123@gmail.com
+        createdAt: '2022-12-08 20:06:25'
+  datasets/report_shipping:
+    name: report_shipping
+    description: ''
+    author: sparklearner123@gmail.com
+    createdAt: '2022-12-08 20:10:58'
+    physicalDatasets:
+      dev:
+        fabricId: 990
+        datasetType: Database
+        description: ''
+        author: sparklearner123@gmail.com
+        createdAt: '2022-12-08 20:10:58'
+  datasets/report_shipping_pricing:
+    name: report_shipping_pricing
+    description: ''
+    author: sparklearner123@gmail.com
+    createdAt: '2022-12-08 20:33:30'
+    physicalDatasets:
+      dev:
+        fabricId: 990
+        datasetType: Database
+        description: ''
+        author: sparklearner123@gmail.com
+        createdAt: '2022-12-08 20:33:30'
 templates: {}
-jobs: {}
+jobs:
+  jobs/PricingReport:
+    name: PricingReport
+    description: ''
+    fabricUID: 990
+    scheduler:
+      Databricks: {}
+    cloudProvider: null
+    jobSize: small
+    scheduleCron: 0 0/2 * * * ? *
+    timeout: null
+    alerting:
+      emails: oncall@acme.com
+      onStart: true
+      onSuccess: false
+      onFailure: true
+    pipelines:
+    - pipelines/PricingSummary
+    jobClusterMode:
+      clusterMode:
+        Single: {}
+      clusterId: null
+    enabled: true
+    createdAt: '2022-12-08 20:49:04'
+    author: sparklearner123@gmail.com
 libraries: []
 subgraphs: {}
 sqlModels: {}
